@@ -6,10 +6,11 @@ import InterviewerList from "components/InterviewerList";
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const { onSave, onCancel, interviewers } = props;  
 
   const cancel = () => {
     reset();
-    props.onCancel();    
+    onCancel();    
   };
 
   const reset = () => {
@@ -32,14 +33,14 @@ export default function Form(props) {
         </form>
         <InterviewerList
           value={interviewer}
-          interviewers={props.interviewers}
+          interviewers={interviewers}
           onChange={setInterviewer}
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={() => props.onSave(student, interviewer)}>Save</Button>
+          <Button confirm onClick={() => onSave(student, interviewer)}>Save</Button>
         </section>
       </section>
     </main>
