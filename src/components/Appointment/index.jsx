@@ -40,14 +40,14 @@ export default function Appointment({ id, time, interview, interviewers, bookInt
       .then(() => transition(SHOW));
   };   
   
-  const cancel = (id) => {
+  const confirm = (id) => {
     transition(DELETING);    
     cancelInterview(id).then(() => transition(EMPTY));
   };
 
-  // const confirm = (id) => {
-  //   transition(CONFIRM);
-  // };
+  const cancel = () => {
+    transition(CONFIRM);
+  };
   
   return (      
       <article className="appointment">
@@ -68,6 +68,13 @@ export default function Appointment({ id, time, interview, interviewers, bookInt
             // onEdit={() => {transition(EDIT)}}
           />
         )}
+        {mode === CONFIRM && (
+        <Confirm
+          message={"Are you sure you would like to delete?"}
+          onCancel={back}
+          onConfirm={() => confirm(id)}
+        />
+        )}
         {/* {mode === EDIT && (
           <Form
             interviewers={interviewers}
@@ -79,9 +86,9 @@ export default function Appointment({ id, time, interview, interviewers, bookInt
             status={true}
           />
         )} */}
-        {mode === CONFIRM && <Confirm />}   
-        {mode === SAVING && <Status status="Saving..." />}
-        {mode === DELETING && <Status status="Deleting..." />}
+           
+        {mode === SAVING && <Status message="Saving" />}
+        {mode === DELETING && <Status message="Deleting" />}
         {/* {mode === ERROR_DELETE && (
           <Error message="Cannot Delete" onClose={() => back()} />
         )}
