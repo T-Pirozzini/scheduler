@@ -12,16 +12,17 @@ import Appointment from "components/Appointment";
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
 
 
-export default function Application(props) {
+export default function Application(props) {  
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {}
-  });  
+  });
 
+  const setDay = day => setState({ ...state, day }); 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  const interviewers = getInterviewersForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);   
     
   useEffect(() => {    
     Promise.all([
@@ -41,12 +42,22 @@ export default function Application(props) {
       })
   }, [])
 
-  const schedule = Object.values(dailyAppointments).map(appointment => {    
-    const interview = getInterview(state, dailyAppointments.interview);    
-    console.log("C", appointment.interview)
-    console.log("interview", interview)
-    console.log("interviewers", interviewers)
-    
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },      
+    };    
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    setState({ ...state, appointments });
+    const res = axios.put('/api/appointments/:id');
+    console.log(res.data.json); 
+  }; 
+
+  const schedule = dailyAppointments.map(appointment => {     
+    const interview = getInterview(state, dailyAppointments.interview); // Need to fix
     return (
       <Appointment 
         key={appointment.id}        
@@ -54,11 +65,10 @@ export default function Application(props) {
         time={appointment.time}
         interview={appointment.interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
       )
-    })
-
-  const setDay = day => setState({ ...state, day });  
+    })  
 
   return (
     <main className="layout">
