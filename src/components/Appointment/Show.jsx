@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function Show({ student, interviewer, onCancel, onDelete}) {   
+export default function Show({ student, interviewer, onEdit, onDelete}) {   
 
   return (
     <main className="appointment__card appointment__card--show">
@@ -18,7 +18,7 @@ export default function Show({ student, interviewer, onCancel, onDelete}) {
             className="appointment__actions-button"
             src="images/edit.png"
             alt="Edit"
-            // onClick={onEdit}
+            onClick={onEdit}
           />
           <img
             className="appointment__actions-button"

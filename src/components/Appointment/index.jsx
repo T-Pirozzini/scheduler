@@ -22,7 +22,7 @@ export default function Appointment({ id, time, interview, interviewers, bookInt
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
-  // const EDIT = "EDIT";
+  const EDIT = "EDIT";
   // const ERROR_DELETE = "ERROR_DELETE"; 
   // const ERROR_SAVE = "ERROR_SAVE";
 
@@ -64,8 +64,8 @@ export default function Appointment({ id, time, interview, interviewers, bookInt
           <Show 
             student={interview.student} 
             interviewer={interview.interviewer ? interview.interviewer.name : null}
-            onDelete={() => cancel(id)}
-            // onEdit={() => {transition(EDIT)}}
+            onDelete={() => cancel()}
+            onEdit={() => transition(EDIT)}
           />
         )}
         {mode === CONFIRM && (
@@ -75,18 +75,17 @@ export default function Appointment({ id, time, interview, interviewers, bookInt
           onConfirm={() => confirm(id)}
         />
         )}
-        {/* {mode === EDIT && (
+        {mode === EDIT && (
           <Form
             interviewers={interviewers}
             onSave={save}
-            onCancel={() => back()}
+            onCancel={back}
             interview={interview}
             name={interview.student}
             interviewer={interview.interviewer.id}
             status={true}
           />
-        )} */}
-           
+        )}           
         {mode === SAVING && <Status message="Saving" />}
         {mode === DELETING && <Status message="Deleting" />}
         {/* {mode === ERROR_DELETE && (
