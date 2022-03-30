@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 // styles
 import "components/InterviewerList.scss";
@@ -19,6 +20,10 @@ export default function InterviewerList({ interviewers, onChange, value }) {
       />
     );
   });
+
+  InterviewerList.propTypes = {
+    interviewers: PropTypes.array.isRequired
+  };
   
   return (
     <section className="interviewers">

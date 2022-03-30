@@ -65,8 +65,8 @@ export default function useApplicationData() {
     };    
     return axios.put(`/api/appointments/${id}`, { ...appointment })
       .then(() => {
-      console.log(id, interview);
-      const daysObj = removeSpots(state,status)
+      // console.log(id, interview);
+      const daysObj = removeSpots(state, status)
       setState({...state, daysObj, appointments});      
     });  
   }
