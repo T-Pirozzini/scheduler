@@ -24,20 +24,19 @@ export default function Appointment({ id, time, interview, interviewers, bookInt
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
   const ERROR_SAVE = "ERROR_SAVE";
-  const ERROR_DELETE = "ERROR_DELETE"; 
+  const ERROR_DELETE = "ERROR_DELETE";
   
-
   const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
   );
   
-  const save = (name, interviewer) => {    
+  const save = (name, interviewer, status) => {    
     const interview = {
       student: name,
       interviewer
     };    
     transition(SAVING)    
-    bookInterview(id, interview)    
+    bookInterview(id, interview, status )    
       .then(() => transition(SHOW))
       .catch(error => transition(ERROR_SAVE, true));
   };   
@@ -85,7 +84,7 @@ export default function Appointment({ id, time, interview, interviewers, bookInt
             onSave={save}
             onCancel={back}
             interview={interview}
-            name={interview.student}
+            student={interview.student}            
             interviewer={interview.interviewer.id}
             status={true}
           />

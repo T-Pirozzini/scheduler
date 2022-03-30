@@ -8,7 +8,7 @@ import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 
 // helpers
-import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterviewersForDay, getInterview,  } from "helpers/selectors";
 
 // hooks
 import useApplicationData from "../hooks/useApplicationData"
@@ -19,7 +19,8 @@ export default function Application(props) {
     state,
     setDay,
     bookInterview,
-    cancelInterview
+    cancelInterview,
+    removeSpots       
   } = useApplicationData();
   
   const interviewers = getInterviewersForDay(state, state.day);

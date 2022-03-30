@@ -25,7 +25,7 @@ export default function Form(props) {
         <form onSubmit={(e) => e.preventDefault()} autoComplete="off">
           <input
             className="appointment__create-input text--semi-bold"
-            name="name"
+            name={"name"}
             type="text"
             placeholder="Enter Student Name"
             value={student}
@@ -41,7 +41,7 @@ export default function Form(props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={() => onSave(student, interviewer)}>Save</Button>
+          <Button confirm onClick={() => onSave(student, interviewer, props.status)} >Save</Button>
         </section>
       </section>
     </main>

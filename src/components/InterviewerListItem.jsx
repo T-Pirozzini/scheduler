@@ -16,7 +16,7 @@ export default function InterviewerListItem({  name, avatar, selected, setInterv
       <img        
         className="interviewers__item-image"
         src={avatar}
-        alt={name}
+        alt={name}                
       />
       {selected && name}
     </li>

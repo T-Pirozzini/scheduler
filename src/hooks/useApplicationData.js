@@ -7,7 +7,7 @@ export default function useApplicationData() {
     days: [],
     appointments: {},
     interviewers: {},
-  });
+  });  
 
   // fetches data from scheduler-api with axios and updates setState
   useEffect(() => {    
@@ -27,12 +27,34 @@ export default function useApplicationData() {
         console.log("error", err.message)
       })
   }, [])
+  
+  // remove an interview spot
+  const removeSpots = (state, status = false) => {
+    const eachDays = Object.values(state.days) 
+     const dayArr = eachDays.map((day) => {          
+       if (day.name === state.day && status === false) {        
+        day.spots -= 1;          
+       }      
+      });
+    return dayArr
+  };
+
+  // add an interview spot
+  const addSpots = (state) => {
+    const eachDays = Object.values(state.days)    
+     const dayArr = eachDays.map((day) => {     
+       if (day.name === state.day) {        
+        day.spots += 1;          
+       }
+      });
+    return dayArr
+  }  
 
   // sets the current day state
   const setDay = day => setState({ ...state, day }); 
 
   // adds an interview appointment to the database with axios
-  const bookInterview = (id, interview) => {     
+  const bookInterview = (id, interview, status) => {     
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },           
@@ -41,10 +63,13 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };    
-    return axios
-      .put(`/api/appointments/${id}`, appointment)
-      .then(() => setState({ ...state, appointments }))   
-    };  
+    return axios.put(`/api/appointments/${id}`, { ...appointment })
+      .then(() => {
+      console.log(id, interview);
+      const daysObj = removeSpots(state,status)
+      setState({...state, daysObj, appointments});      
+    });  
+  }
   
   // removes an interview appointment from database with axios
   const cancelInterview = (id) => {
@@ -58,8 +83,11 @@ export default function useApplicationData() {
     };
     return axios
       .delete(`/api/appointments/${id}`)
-      .then(()=> setState({ ...state, appointments}));
+      .then(()=> {        
+        const daysObj = addSpots(state)
+        setState({...state, daysObj, appointments}); 
+      });
     }; 
 
-    return { state, setDay, bookInterview, cancelInterview }
+    return { state, setDay, bookInterview, cancelInterview, removeSpots }
   };
