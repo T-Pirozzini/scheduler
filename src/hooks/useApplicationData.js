@@ -33,10 +33,11 @@ export default function useApplicationData() {
     const eachDays = Object.values(state.days) 
      const dayArr = eachDays.map((day) => {          
        if (day.name === state.day && status === false) {        
-        day.spots -= 1;          
-       }      
+        day.spots -= 1;                 
+       }
+       return null;       
       });
-    return dayArr
+    return dayArr    
   };
 
   // add an interview spot
@@ -44,8 +45,9 @@ export default function useApplicationData() {
     const eachDays = Object.values(state.days)    
      const dayArr = eachDays.map((day) => {     
        if (day.name === state.day) {        
-        day.spots += 1;          
+        day.spots += 1;                  
        }
+       return null;
       });
     return dayArr
   }  
