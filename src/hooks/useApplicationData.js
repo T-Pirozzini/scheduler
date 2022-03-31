@@ -25,8 +25,8 @@ export default function useApplicationData() {
     })
       .catch((err) => {
         console.log("error", err.message)
-      })
-  }, [])
+    })
+  }, []);
   
   // remove an interview spot
   const removeSpots = (state, status = false) => {
@@ -50,7 +50,7 @@ export default function useApplicationData() {
        return null;
       });
     return dayArr
-  }  
+  };
 
   // sets the current day state
   const setDay = day => setState({ ...state, day }); 
@@ -66,12 +66,11 @@ export default function useApplicationData() {
       [id]: appointment,
     };    
     return axios.put(`/api/appointments/${id}`, { ...appointment })
-      .then(() => {
-      // console.log(id, interview);
+      .then(() => {      
       const daysObj = removeSpots(state, status)
       setState({...state, daysObj, appointments});      
     });  
-  }
+  };
   
   // removes an interview appointment from database with axios
   const cancelInterview = (id) => {

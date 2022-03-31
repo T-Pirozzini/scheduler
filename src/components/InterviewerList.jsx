@@ -31,4 +31,4 @@ export default function InterviewerList({ interviewers, onChange, value }) {
       <ul className="interviewers__list">{interviewerList}</ul>
     </section>
   )
-}
+};

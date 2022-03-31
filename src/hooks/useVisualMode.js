@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 export default function useVisualMode(initial) {  
   const [mode, setMode] = useState(initial);
-  const [history, setHistory] = useState([initial]);  
+  const [history, setHistory] = useState([initial]);
 
+  // transition to a new mode
   const transition = (newMode, replace = false) => { 
     if (replace) {      
       setHistory((prev) => [...prev.slice(0, -1), newMode]);
@@ -11,8 +12,9 @@ export default function useVisualMode(initial) {
       setHistory((prev) => [...prev, newMode]);
     }
     setMode(newMode);
-  }
+  };
 
+  // transition back to the previous mode
   const back = () => {
     setHistory((prev) => {
       if (prev.length === 1) {
@@ -22,7 +24,7 @@ export default function useVisualMode(initial) {
       setMode(reducedMode[reducedMode.length - 1]);
       return reducedMode;
     });
-  }
+  };
 
   return { mode, transition, back };
 }

@@ -14,18 +14,16 @@ export function getAppointmentsForDay(state, day) {
     }
     return false;
   });  
-}
+};
 
-export function getInterviewersForDay(state, day) { 
-  
+export function getInterviewersForDay(state, day) {  
   let appointmentArray = state.days.find(dayObject => dayObject.name === day);
   if (state.days.length === 0 || appointmentArray === undefined) {
     return []
   };
   
   return appointmentArray.interviewers.map(key => state.interviewers[key]);
-}
-
+};
 
 export function getInterview(state, interview) {
   if (!interview) {
@@ -38,4 +36,4 @@ export function getInterview(state, interview) {
     student,
     interviewer: state.interviewers[interviewerId]
   };  
-}
+};

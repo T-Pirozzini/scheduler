@@ -3,8 +3,13 @@
 Interview Scheduler is a single page application that allows a user to book, edit and cancel interviews.
 
 ## Final Product
+Home Page
 !["Scheduler Home Page"](https://github.com/T-Pirozzini/scheduler/blob/master/docs/scheduler-home.png?raw=true)
+
+Book an Interview
 !["Book an Interview"](https://github.com/T-Pirozzini/scheduler/blob/master/docs/scheduler-book.png?raw=true)
+
+Feature: Confirmation when you cancel an interview
 !["Confirm deleting Interview"](https://github.com/T-Pirozzini/scheduler/blob/master/docs/schedule-confirm-delete.png?raw=true)
 
 ## Setup

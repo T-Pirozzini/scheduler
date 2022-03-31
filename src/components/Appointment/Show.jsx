@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export default function Show({ student, interviewer, onEdit, onDelete}) {   
 
   return (
